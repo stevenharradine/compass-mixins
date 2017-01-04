@@ -4,7 +4,6 @@
 //
 
 
-// compact is part of libsass
 
 @function -compass-nth($list, $place) {
   // Yep, Sass-lists are 1-indexed.
@@ -79,8 +78,13 @@
 }
 
 @function compact($vars...) {
+  @if length($vars) == 1 {
+    $vars: nth($vars, 1);
+  }
+
   $separator: list-separator($vars);
   $list: ();
+
   @each $var in $vars {
       @if $var {
           $list: append($list, $var, $separator);
@@ -88,3 +92,4 @@
   }
   @return $list;
 }
+
